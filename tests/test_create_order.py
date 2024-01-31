@@ -30,7 +30,7 @@ class TestCreateOrder:
             ['BLACK', 'GREY']
         ]
     )
-    def test_choose_black_color(self, color):
+    def test_choose_different_color(self, color):
         payload = create_new_order_and_return_data()
         payload["color"] = color
         json_payload = json.dumps(payload)

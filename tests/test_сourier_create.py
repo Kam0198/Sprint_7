@@ -17,7 +17,7 @@ class TestCreateCourier:
         cls.data["password"] = courier[1]
         cls.data["firstName"] = courier[2]
 
-    @allure.title('Проверка создания курьера, возвращения правильного код ответа и возвращения {"ok":true}')
+    @allure.title('Проверка создания курьера, возвращения правильного код ответа и возвращения тела ответа')
     def test_create_new_courier(self):
         response_body = {
             "ok": True
