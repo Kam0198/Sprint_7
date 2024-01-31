@@ -1,0 +1,7 @@
+pip~=23.3.2
+attrs~=23.1.0
+setuptools~=65.5.0
+packaging~=23.2
+pytest~=7.4.3
+requests~=2.31.0
+Faker~=21.0.0

@@ -23,7 +23,7 @@ class TestAuth:
             data=TestAuth.data)
 
     @allure.title('Проверка авторизации курьера, возвращения правильного код ответа'
-                  'и возращение id пользователя') #падает авторизация
+                  'и возвращение id пользователя') #падает авторизация
     def test_courier_auth(self):
         response = requests.post(f"{urls.MAIN_URL}{handlers.LOGIN_COURIER_HANDLER}",
                                  data=TestAuth.data)
@@ -39,7 +39,7 @@ class TestAuth:
             ('', '')
         ]
     )
-    @allure.title('Проверка авторизации без заполнения заполнения обязательных полей'
+    @allure.title('Проверка авторизации без заполнения обязательных полей'
                   'и возвращения правильного код ответа')
     def test_courier_auth_with_invalid_data(self, login, password):
         TestAuth.courier_registration()
