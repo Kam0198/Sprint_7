@@ -4,7 +4,7 @@ import requests
 
 import handlers
 import urls
-from generates.generate_registration import register_new_courier_and_return_login_password as generate_data
+from generates.generate_random_string import generate_random_string
 
 
 class TestCreateCourier:
@@ -12,10 +12,9 @@ class TestCreateCourier:
 
     @classmethod
     def setup_class(cls):
-        courier = generate_data()
-        cls.data["login"] = courier[0]
-        cls.data["password"] = courier[1]
-        cls.data["firstName"] = courier[2]
+        cls.data["login"] = generate_random_string(10)
+        cls.data["password"] = generate_random_string(10)
+        cls.data["firstName"] = generate_random_string(10)
 
     @allure.title('Проверка создания курьера, возвращения правильного код ответа и возвращения тела ответа')
     def test_create_new_courier(self):
@@ -28,8 +27,11 @@ class TestCreateCourier:
         assert response.status_code == 201
         assert response.json() == response_body
 
-    @allure.title('Проверка регистрации двух одинаковых курьеров и возвращения правильного код ответа') # не нравится, что тесты не атомарные и зависят друг от друга
+    @allure.title('Проверка регистрации двух одинаковых курьеров и возвращения правильного код ответа')
     def test_create_same_couriers(self):
+        response = requests.post(
+            f"{urls.MAIN_URL}{handlers.CREATE_COURIER_HANDLER}",
+            data=TestCreateCourier.data)
         response = requests.post(
             f"{urls.MAIN_URL}{handlers.CREATE_COURIER_HANDLER}",
             data=TestCreateCourier.data)
@@ -38,7 +40,6 @@ class TestCreateCourier:
             "code": 409,
             "message": "Этот логин уже используется. Попробуйте другой."
              }
-        print(response.json())
 
     @pytest.mark.parametrize(
         'login, password, firstName',
@@ -46,7 +47,7 @@ class TestCreateCourier:
             ('', '', ''),
             ('', '15363', 'KAM'),
             ('kam', '', 'Kam'),
-            ('akam', '', ''),  # не проходит кейс (поле не является обязательным??)
+            ('akao1om', '', ''),  # не проходит кейс (поле не является обязательным??)
         ]
     )
     @allure.title('Проверка регистрации курьера без заполнения обязательных полей '
@@ -61,7 +62,6 @@ class TestCreateCourier:
             "code": 400,
             "message": "Недостаточно данных для создания учетной записи"
         }
-        print(response.json())
 
     @classmethod
     def teardown_class(cls):

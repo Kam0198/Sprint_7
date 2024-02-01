@@ -18,7 +18,6 @@ class TestReturnOrder:
     def test_list_orders(self):
         response = requests.get(f'{urls.MAIN_URL}{handlers.MAKE_ORDER_HANDLER}')
         assert len(response.json()) > 0
-        print(response.json())
 
     @classmethod
     def teardown_class(cls):

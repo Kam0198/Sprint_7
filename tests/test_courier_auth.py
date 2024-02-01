@@ -23,13 +23,12 @@ class TestAuth:
             data=TestAuth.data)
 
     @allure.title('Проверка авторизации курьера, возвращения правильного код ответа'
-                  'и возвращение id пользователя') #падает авторизация
+                  'и возвращение id пользователя')
     def test_courier_auth(self):
         response = requests.post(f"{urls.MAIN_URL}{handlers.LOGIN_COURIER_HANDLER}",
                                  data=TestAuth.data)
         assert response.status_code == 200
-        assert id in response.json()
-        print(TestAuth.data)
+        assert "id" in response.json()
 
     @pytest.mark.parametrize(
         'login, password',
@@ -52,7 +51,6 @@ class TestAuth:
             "code": 400,
             "message": "Недостаточно данных для входа"
         }
-        print(response.json())
 
     @pytest.mark.parametrize(
         'login, password',
@@ -75,7 +73,6 @@ class TestAuth:
             "code": 404,
             "message": "Учетная запись не найдена"
         }
-        print(response.json())
 
     @classmethod
     def teardown_class(cls):

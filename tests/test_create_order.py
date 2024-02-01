@@ -19,7 +19,6 @@ class TestCreateOrder:
         response_data = response.json()
         assert response.status_code == 201
         assert "track" in response_data.keys()
-        print(response.json())
 
     @allure.title('Проверка выбора цвета самоката и содержание track в теле ответа')
     @pytest.mark.parametrize(
@@ -33,10 +32,8 @@ class TestCreateOrder:
     def test_choose_different_color(self, color):
         payload = create_new_order_and_return_data()
         payload["color"] = color
-        json_payload = json.dumps(payload)
         response = requests.post(
                     f'{urls.MAIN_URL}{handlers.MAKE_ORDER_HANDLER}',
-                    data=json_payload)
+                    json=payload)
         response_data = response.json()
         assert "track" in response_data.keys()
-        print(response.json())
