@@ -28,7 +28,6 @@ class TestCreateCourier:
         assert response.json() == response_body
 
     @allure.title('Проверка регистрации двух одинаковых курьеров и возвращения правильного код ответа')
-    @pytest.mark.usefixtures("user_data")
     def test_create_same_couriers(self, user_data):
         for i in range(2):
             response = requests.post(handlers.create_courier_url,
