@@ -16,7 +16,7 @@ class TestReturnOrder:
 
     @allure.title('Проверка возвращения списка заказов в теле ответа')
     def test_list_orders(self):
-        response = requests.get(f'{urls.MAIN_URL}{handlers.MAKE_ORDER_HANDLER}')
+        response = requests.get(handlers.make_order_url)
         assert len(response.json()) > 0
 
     @classmethod
